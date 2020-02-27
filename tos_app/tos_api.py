@@ -16,7 +16,7 @@ from django.http import Http404
 
 from rest_framework import viewsets, response, status
 from rest_framework.decorators import action
-from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
 
 from tos_app import models
@@ -40,10 +40,11 @@ class UserTermsViewset(viewsets.ModelViewSet):
     """
     queryset = models.UserTerms.objects.all()
     serializer_class = serializers.UserTermsSerializer
-    
+    renderer_classes = [JSONRenderer, TemplateHTMLRenderer]
 
     def create(self, request):
         serializer =  serializers.UserTermsSerializer(data=request.data)
+    
         if serializer.is_valid():
             serializer.save()
             return response.Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -52,8 +53,13 @@ class UserTermsViewset(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'])
     def get_agreement(self, request, *args, **kwargs):
-        obj=self.get_object()
-        return response.Response(serializers.UserTermsSerializer(obj).data, template_name='tos_template.html').render()  
 
+        obj=self.get_object()
+
+        if request.accepted_renderer.format == 'html':
+            return response.Response(serializers.UserTermsSerializer(obj).data, template_name='tos_template.html') 
+        else:
+            return response.Response(serializers.UserTermsSerializer(obj).data)  
+            
         
 
