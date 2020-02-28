@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'tos_app',
 ]
 
@@ -126,14 +127,14 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-     #   'rest_framework.permissions.IsAuthenticated',
+        #   'rest_framework.permissions.IsAuthenticated',
     ],
     #  'DEFAULT_RENDERER_CLASSES': [
     #     'rest_framework.renderers.JSONRenderer',# it is a good idea to disable the browseable API in production with this configuration:
     #  ],
-    #  'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework.authentication.TokenAuthentication',
-    #     'rest_framework.authentication.SessionAuthentication',
-    #  ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        #     'rest_framework.authentication.SessionAuthentication',
+    ],
 
 }

@@ -9,7 +9,7 @@ The API provides two endpoints with CRUD methods:
         the the time of modification/creation of record is stored automatically
         request includes also first, last name, stree, and postal code that are included in the agreement
     
-    > action sign (GET) for authenticated users renders the agreement to HTML with pre-populated user data
+    > action sign (GET with attribute format=html) for authenticated users renders the agreement to HTML with pre-populated user data
     
 
 If any of the user data changes there should be no changes to the agreement.

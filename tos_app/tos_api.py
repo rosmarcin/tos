@@ -23,10 +23,10 @@ from tos_app import models
 from tos_app import serializers
 
 
-
 class TermsOfServiceViewset(viewsets.ModelViewSet):
     queryset = models.TermsOfService.objects.all()
-    serializer_class = serializers.TermsOfServiceSerializer 
+    serializer_class = serializers.TermsOfServiceSerializer
+
 
 class UserTermsViewset(viewsets.ModelViewSet):
     """
@@ -36,30 +36,22 @@ class UserTermsViewset(viewsets.ModelViewSet):
 
     Functional endpoint : sign_terms allows authenticated user to sign current (latest) version of terms
 
-
     """
     queryset = models.UserTerms.objects.all()
     serializer_class = serializers.UserTermsSerializer
     renderer_classes = [JSONRenderer, TemplateHTMLRenderer]
 
     def create(self, request):
-        serializer =  serializers.UserTermsSerializer(data=request.data)
-    
+        serializer = serializers.UserTermsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return response.Response(serializer.data, status=status.HTTP_201_CREATED)
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
     @action(detail=True, methods=['get'])
     def get_agreement(self, request, *args, **kwargs):
-
-        obj=self.get_object()
-
+        obj = self.get_object()
         if request.accepted_renderer.format == 'html':
-            return response.Response(serializers.UserTermsSerializer(obj).data, template_name='tos_template.html') 
+            return response.Response(serializers.UserTermsSerializer(obj).data, template_name='tos_template.html')
         else:
-            return response.Response(serializers.UserTermsSerializer(obj).data)  
-            
-        
-
+            return response.Response(serializers.UserTermsSerializer(obj).data)
