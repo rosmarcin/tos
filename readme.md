@@ -1,4 +1,4 @@
-# Project Title
+# Terms of Service - Django Rest Framework API 
 
 The Term Of Service api allow users to sign the agreement for the selected version of Terms of Services.
 The API provides two endpoints with CRUD methods:
