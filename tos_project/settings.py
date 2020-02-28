@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2t%-qa!o5&bh3l)l5k+pjl%8v4d8x&dod@&591!i2$_h)lmz-+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -124,6 +124,10 @@ STATIC_URL = '/static/'
 
 
 # Terms Of Service configuration
+ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+STATIC_ROOT = os.path.join(ENV_PATH, '../public/static/')
+MEDIA_ROOT = os.path.join(ENV_PATH, '../public/media/')
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

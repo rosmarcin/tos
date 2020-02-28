@@ -1,0 +1,17 @@
+version: "2"
+services:
+  django:
+    container_name: django_server_tos
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: terms_of_service_drf
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/var/www/tos_project
+    ports:
+      - "8000:8000"
+    expose: 
+        - 8000
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
